@@ -1,37 +1,21 @@
 <template>
   <div class="home">
     <div class="products">
-      <div class="product">
+      <div
+        v-for="(product, index) in this.products"
+        :key="index"
+        class="product"
+      >
         <div
           class="product-image"
-          style="
-            background-image: url('https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg');
-          "
+          :style="{
+            backgroundImage: 'url(' + product.image + ')',
+          }"
         ></div>
-        <h4>Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops</h4>
-        <p class="price">US$ 109.95</p>
-        <button>Add to bag</button>
-      </div>
-      <div class="product">
-        <div
-          class="product-image"
-          style="
-            background-image: url('https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg');
-          "
-        ></div>
-        <h4>Mens Casual Premium Slim Fit T-Shirts</h4>
-        <p class="price">US$ 22.30</p>
-        <button>Add to bag</button>
-      </div>
-      <div class="product">
-        <div
-          class="product-image"
-          style="
-            background-image: url('https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_.jpg');
-          "
-        ></div>
-        <h4>Mens Cotton Jacket</h4>
-        <p class="price">US$ 55.99</p>
+        <h4>{{ product.title }}</h4>
+        <p class="price">{{ product.price.toFix }}</p>
+        <p class="price">rate {{ product.rating.rate }}</p>
+
         <button>Add to bag</button>
       </div>
     </div>
@@ -67,7 +51,7 @@ export default {
       box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
       padding: 16px;
       margin: 8px;
-      height: 360px;
+      height: 390px;
 
       @media only screen and (max-width: 769px) {
         flex: 0 0 40%;
