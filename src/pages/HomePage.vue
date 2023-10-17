@@ -42,7 +42,9 @@
 export default {
   name: "HomePage",
   data() {
-    return {};
+    return {
+        products:this.$store.state.products
+    };
   },
 
   methods: {},
