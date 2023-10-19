@@ -1,31 +1,43 @@
 <template>
     <div class="basket">
-        <div class="items">
-            <div class="item">
-                <div class="remove">Remove item</div>
-                <div class="photo">
-                    <img src="https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg" alt="" />
+        <template v-if="productsInBag.length">
+        <div  class="items">
+            <div v-for="(product, index) in productsInBag" :key="index" class="item">
+                <div class="remove" @click="this.$store.dispatch('removeFromBag', product.id)">
+                    Remove item
                 </div>
-                <div class="description">Mens Casual Premium Slim Fit T-Shirts</div>
+                <div class="photo">
+                    <img :src="product.image" alt="" />
+                </div>
+                <div class="description">{{ product.title }}</div>
                 <div class="price">
                     <span class="quantity-area">
-                        <button disabled="">-</button>
-                        <span class="quantity">1</span>
-                        <button>+</button>
+                        <button :disabled="product.quatity <= 1" @click="product.quatity--">
+                            -
+                        </button>
+                        <span class="quantity">{{ product.quatity }}</span>
+                        <button @click="product.quatity++">+</button>
                     </span>
-                    <span class="amount">US$ 22.30</span>
+                    <span class="amount">
+                        us$ {{ (product.price * product.quatity).toFixed(2) }}</span>
                 </div>
             </div>
             <div class="grand-total">Grand Total: US$ 22.30</div>
         </div>
+    </template>
+    <template v-else>
+  <h4>No items in bag yet</h4>
+    </template>
     </div>
 </template>
   
 <script>
+import { mapState } from "vuex";
 export default {
     name: "ShoppingBasket",
 
     methods: {},
+    computed: mapState(["productsInBag"]),
 };
 </script>
   
