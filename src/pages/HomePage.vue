@@ -16,10 +16,16 @@
         <!-- <p class="price">{{ product.price.toFix }}</p> -->
         <p class="price">Price$ {{ product.price.toFixed(2) }}</p>
         <p class="price">rate {{ product.rating.rate }}</p>
-        <button @click="addToBag(product)">Add to bag</button>
+        <button v-if="!isInBag(product)" @click="addToBag(product)">
+          Add to bag
+        </button>
+        <button v-else class="remove">
+          Remove from bag
+        </button>
+
       </div>
     </div>
-    {{ productsInBag.length }}
+    <!-- {{ productsInBag.length }} -->
   </div>
 </template>
   
@@ -43,7 +49,10 @@ export default {
     addToBag(product) {
       product.quatity = 1;
       console.log(product);
-      this.$store.dispatch('addToBag', product);
+      this.$store.dispatch("addToBag", product);
+    },
+    isInBag(product) {
+      return this.productsInBag.find((item) => item.id == product.id);
     },
   },
 };
