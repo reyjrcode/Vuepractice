@@ -13,12 +13,13 @@
           }"
         ></div>
         <h4>{{ product.title }}</h4>
-        <p class="price">{{ product.price.toFix }}</p>
+        <!-- <p class="price">{{ product.price.toFix }}</p> -->
+        <p class="price">Price$ {{ product.price.toFixed(2) }}</p>
         <p class="price">rate {{ product.rating.rate }}</p>
-
-        <button>Add to bag</button>
+        <button @click="addToBag(product)">Add to bag</button>
       </div>
     </div>
+    {{ productsInBag.length }}
   </div>
 </template>
   
@@ -33,6 +34,16 @@ export default {
   computed: {
     products() {
       return this.$store.state.products;
+    },
+    productsInBag() {
+      return this.$store.state.productsInBag;
+    },
+  },
+  methods: {
+    addToBag(product) {
+      product.quatity = 1;
+      console.log(product);
+      this.$store.dispatch('addToBag', product);
     },
   },
 };
