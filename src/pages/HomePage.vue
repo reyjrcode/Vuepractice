@@ -20,11 +20,13 @@
         <button v-if="!isInBag(product)" @click="addToBag(product)">
           Add to bag
         </button>
-        <button 
-        v-else 
-        class="remove"
-        @click="this.$store.dispatch('removeFromBag', product.id)"
-        >Remove from bag</button>
+        <button
+          v-else
+          class="remove"
+          @click="this.$store.dispatch('removeFromBag', product.id)"
+        >
+          Remove from bag
+        </button>
       </div>
     </div>
     <!-- {{ productsInBag.length }} -->
@@ -32,6 +34,8 @@
 </template>
   
   <script>
+import { mapState } from "vuex";
+
 export default {
   name: "HomePage",
   data() {
@@ -39,14 +43,14 @@ export default {
       //   products: this.$store.state.products,
     };
   },
-  computed: {
-    products() {
-      return this.$store.state.products;
-    },
-    productsInBag() {
-      return this.$store.state.productsInBag;
-    },
-  },
+  computed: mapState(["products", "productsInBag"]),
+  // products() {
+  //   return this.$store.state.products;
+  // },
+  // productsInBag() {
+  //   return this.$store.state.productsInBag;
+  // },
+
   methods: {
     addToBag(product) {
       product.quatity = 1;

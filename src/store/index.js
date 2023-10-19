@@ -16,7 +16,7 @@ export default createStore({
             state.productsInBag.push(product);
         },
         removeFromBag(state, productId) {
-            var updatedBag = state.productsInBag.filter(item =>productId != item.id);
+            var updatedBag = state.productsInBag.filter(item => productId != item.id);
             state.productsInBag = updatedBag;
         },
     },
@@ -32,7 +32,9 @@ export default createStore({
             commit('addToBag', product);
         },
         removeFromBag({ commit }, productId) {
-            commit('removeFromBag', productId);
+            if (confirm('Are you sure you want to remove the item from bag?')) {
+                commit('removeFromBag', productId);
+            }
         },
     },
     modules: {
